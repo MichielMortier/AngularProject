@@ -1,0 +1,142 @@
+<div *ngIf="!berekend" class="container">
+  <h3>Vul hier uw gegevens in en kom snel te weten of u in aanmerking komt!</h3>
+  <form [formGroup]="myForm" novalidate>
+    <div class="form-group">
+      <div class="row">
+        <label for="naam" class="col-2 col-form-label">Naam</label>
+        <input type="text" class="form-control col-10" id="naam"
+               [ngClass]="{'is-invalid': naam.invalid && (naam.dirty || naam.touched)}"
+               formControlName="naam" placeholder="Naam">
+      </div>
+      <div *ngIf="naam.invalid && (naam.dirty || naam.touched)"
+           class="alert alert-danger col-10 offset-2" style="margin-top: 10px; vertical-align: middle">
+
+        <div *ngIf="naam.errors.required">
+          * Naam is verplicht.
+        </div>
+        <div *ngIf="naam.errors.minlength">
+          * Naam moet minimaal 2 character lang zijn.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row">
+        <label for="voornaam" class="col-2 col-form-label">Voornaam</label>
+        <input type="text" class="form-control col-10" id="voornaam"
+               [ngClass]="{'is-invalid': voornaam.invalid && (voornaam.dirty || voornaam.touched)}"
+               formControlName="voornaam" placeholder="Voornaam">
+      </div>
+      <div
+        *ngIf="voornaam.invalid && (voornaam.dirty || voornaam.touched)"
+        class="alert alert-danger col-10 offset-2" style="margin-top: 10px; vertical-align: middle">
+
+        <div *ngIf="voornaam.errors.required">
+          * Voornaam is verplicht.
+        </div>
+        <div *ngIf="voornaam.errors.minlength">
+          * Voornaam moet minimaal 2 character lang zijn.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="geboorteDatum" class="col-2 col-form-label">Geboortedatum</label>
+      <input type="date" class="form-control col-10" id="geboorteDatum"
+             [ngClass]="{'is-invalid': geboorteDatum.invalid && (geboorteDatum.dirty || geboorteDatum.touched)}"
+             formControlName="geboorteDatum">
+      <div
+        *ngIf="geboorteDatum.invalid && (geboorteDatum.dirty || geboorteDatum.touched)"
+        class="alert alert-danger col-10 offset-2" style="margin-top: 10px; vertical-align: middle">
+
+        <div *ngIf="geboorteDatum.errors.required">
+          * Geboortedatum is verplicht.
+        </div>
+        <div *ngIf="geboorteDatum.errors.dateChecker">
+          * Geboortedatum ligt niet tussen 1900-2000.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row">
+        <label for="email" class="col-2 col-form-label">E-mailadres</label>
+        <input type="email" class="form-control col-10" id="email"
+               [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}"
+               formControlName="email" placeholder="example@example.be">
+      </div>
+      <div *ngIf="email.invalid && (email.dirty || email.touched)"
+           class="alert alert-danger col-10 offset-2" style="margin-top: 10px; vertical-align: middle">
+
+        <div *ngIf="email.errors.required">
+          * Email is verplicht.
+        </div>
+        <div *ngIf="email.errors.email">
+          * Email moet van het correcte formaat zijn.
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Geslacht:</label>
+      <div class="radio col-2" style="padding-left: 0px">
+        <input type="radio" required [(ngModel)]="geslacht" [ngModelOptions]="{standalone: true}" name="geslacht"
+               value="man"> Man
+      </div>
+      <div class="radio col-2">
+        <input type="radio" required [(ngModel)]="geslacht" [ngModelOptions]="{standalone: true}" name="geslacht"
+               value="vrouw"> Vrouw
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row">
+        <label for="gewicht" class="col-2 col-form-label">Gewicht(kg)</label>
+        <input type="number" class="form-control col-10" id="gewicht"
+               [ngClass]="{'is-invalid': gewicht.invalid && (gewicht.dirty || gewicht.touched)}"
+               formControlName="gewicht" placeholder="65,6">
+      </div>
+      <div *ngIf="gewicht.invalid && (gewicht.dirty || gewicht.touched)"
+           class="alert alert-danger col-10 offset-2" style="margin-top: 10px; vertical-align: middle">
+
+        <div *ngIf="gewicht.errors.required">
+          * Gewicht is verplicht.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row">
+        <label for="lengte" class="col-2 col-form-label">Lengte(m)</label>
+        <input type="number" class="form-control col-10" id="lengte"
+               [ngClass]="{'is-invalid': lengte.invalid && (lengte.dirty || lengte.touched)}"
+               formControlName="lengte" placeholder="1,78">
+      </div>
+      <div *ngIf="lengte.invalid && (lengte.dirty || lengte.touched)"
+           class="alert alert-danger col-10 offset-2" style="margin-top: 10px; vertical-align: middle">
+
+        <div *ngIf="lengte.errors.required">
+          * Lengte is verplicht.
+        </div>
+        <div *ngIf="lengte.errors.lengthChecker">
+          * Lengte ligt niet binnen het gevraagde interval.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-info" (click)="onSubmit()" [disabled]="!myForm.valid">Submit</button>
+
+  </form>
+</div>
+
+<div *ngIf="berekend" class="alert alert-info col-4 offset-4" style="margin-top: 100px;" >
+  <div *ngIf="geschikt">
+    <strong>Proficiat</strong>, je komt in aanmerking om deel te nemen! <br>
+    We nemen zo snel mogelijk contact met u op!
+  </div>
+  <div *ngIf="!geschikt">
+      <strong>Jammer</strong>, u komt niet in aanmerking. <br>
+      Toch bedankt voor de interesse en tijd.
+  </div>
+</div>

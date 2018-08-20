@@ -1,0 +1,13 @@
+h3 {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+form {
+  padding-bottom: 15px;
+}
+
+.alert-info {
+  color: #FFFFFF;
+  background-color: #1E64C8;
+}
