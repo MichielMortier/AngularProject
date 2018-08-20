@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   public berekend: boolean;
   public geschikt: boolean;
 
-  constructor(private router: Router, private http:HttpClient) {
+  constructor(private router: Router, private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -31,12 +31,6 @@ export class RegisterComponent implements OnInit {
     this.createFormControls();
     this.createForm();
     this.geslacht = 'man';
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin' : '*'
-      })
-    };
-    this.http.get('https://springrestserver.herokuapp.com/api/hi',{responseType: 'text'}).subscribe(val => console.log(val));
   }
 
   createFormControls() {
@@ -82,16 +76,24 @@ export class RegisterComponent implements OnInit {
       console.log('bmi is = ' + bmi);
       console.log('geboortejaar is = ' + year);
       console.log('Geslacht is ' + this.geslacht);
-      this.geschikt = true;
-      /*const txtFile = "assets/Data.txt";
-      const file = new File(txtFile);
-      var str = "My string of text";
-
-      file.open("w"); // open file with write access
-      file.writeln("First line of text");
-      file.writeln("Second line of text " + str);
-      file.write(str);
-      file.close();*/
+      const data = {
+        'id' : 1,
+        'name' : this.naam.value,
+        'preName' : this.voornaam.value,
+        'birthDay' : this.geboorteDatum.value,
+        'email' : this.email.value,
+        'gender' : this.geslacht,
+        'weight' : this.gewicht.value,
+        'length' : this.lengte.value
+      };
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Access-Control-Allow-Origin' : '*',
+          'Content-Type': 'application/json'
+        })
+      };
+      this.http.post<boolean>('https://springrestserver.herokuapp.com/api/calculate', JSON.stringify(data), httpOptions)
+        .subscribe(val => this.geschikt = val);
     }
   }
 
