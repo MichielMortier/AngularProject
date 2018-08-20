@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
         'Access-Control-Allow-Origin' : '*'
       })
     };
-    this.http.get('https://opinionated-quotes-api.gigalixirapp.com/v1/quotes').subscribe(val => console.log(val));
+    this.http.get('https://springrestserver.herokuapp.com/api/hi',{responseType: 'text'}).subscribe(val => console.log(val));
   }
 
   createFormControls() {
