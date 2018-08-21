@@ -71,11 +71,6 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     if (this.myForm.valid) {
       this.berekend = true;
-      const bmi = this.gewicht.value / (this.lengte.value * this.lengte.value);
-      const year = new Date(this.geboorteDatum.value).getFullYear();
-      console.log('bmi is = ' + bmi);
-      console.log('geboortejaar is = ' + year);
-      console.log('Geslacht is ' + this.geslacht);
       const data = {
         'id' : 1,
         'name' : this.naam.value,
