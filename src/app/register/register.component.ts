@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
   public geslacht: string;
   public berekend: boolean;
   public geschikt: boolean;
+  public submit: boolean;
 
   constructor(private router: Router, private http: HttpClient) {
   }
@@ -28,6 +29,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.berekend = false;
     this.geschikt = false;
+    this.submit = false;
     this.createFormControls();
     this.createForm();
     this.geslacht = 'man';
@@ -70,25 +72,28 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.myForm.valid) {
-      this.berekend = true;
+      this.submit = true;
       const data = {
-        'id' : 1,
-        'name' : this.naam.value,
-        'preName' : this.voornaam.value,
-        'birthDay' : this.geboorteDatum.value,
-        'email' : this.email.value,
-        'gender' : this.geslacht,
-        'weight' : this.gewicht.value,
-        'length' : this.lengte.value
+        'id': 1,
+        'name': this.naam.value,
+        'preName': this.voornaam.value,
+        'birthDay': this.geboorteDatum.value,
+        'email': this.email.value,
+        'gender': this.geslacht,
+        'weight': this.gewicht.value,
+        'length': this.lengte.value
       };
       const httpOptions = {
         headers: new HttpHeaders({
-          'Access-Control-Allow-Origin' : '*',
+          'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
         })
       };
       this.http.post<boolean>('https://springrestserver.herokuapp.com/api/calculate', JSON.stringify(data), httpOptions)
-        .subscribe(val => this.geschikt = val);
+        .subscribe(val => {
+          this.geschikt = val;
+          this.berekend = true;
+        });
     }
   }
 
