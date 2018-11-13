@@ -41,6 +41,21 @@
     </div>
 
     <div class="form-group row">
+      <label for="telefoonNummer" class="col-2 col-form-label">Telefoonnummer</label>
+      <input type="text" class="form-control col-10" id="telefoonNummer"
+             [ngClass]="{'is-invalid': telefoonNummer.invalid && (telefoonNummer.dirty || telefoonNummer.touched)}"
+             formControlName="telefoonNummer" placeholder="+32...">
+      <div
+        *ngIf="telefoonNummer.invalid && (telefoonNummer.dirty || telefoonNummer.touched)"
+        class="alert alert-danger col-10 offset-2" style="margin-top: 10px; vertical-align: middle">
+
+        <div *ngIf="telefoonNummer.errors.required">
+          * Geboortedatum is verplicht.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
       <label for="geboorteDatum" class="col-2 col-form-label">Geboortedatum</label>
       <input type="date" class="form-control col-10" id="geboorteDatum"
              [ngClass]="{'is-invalid': geboorteDatum.invalid && (geboorteDatum.dirty || geboorteDatum.touched)}"
@@ -127,7 +142,7 @@
 
     <button type="submit" class="btn btn-info" [disabled]="submit" (click)="onSubmit()" [disabled]="!myForm.valid">Submit</button>
     <div *ngIf="submit && !berekend" class="alert alert-success col-10 offset-2">
-      U aanvraag wordt verstuurd, gelieve even te wachten.
+      Uw aanvraag wordt verstuurd, gelieve even te wachten.
     </div>
   </form>
 </div>

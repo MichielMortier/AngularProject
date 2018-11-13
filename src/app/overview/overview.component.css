@@ -5,6 +5,7 @@
 
 #blueTag {
   position: relative;
+  height: 50vh;
   background-color: #1E64C8;
   clear: both;
   overflow: hidden;
@@ -26,6 +27,7 @@
 }
 
 #buttonTags {
+  height: 30vh;
   background-color: lightgray;
 }
 

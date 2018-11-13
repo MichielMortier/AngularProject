@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   public naam: FormControl;
   public voornaam: FormControl;
   public geboorteDatum: FormControl;
+  public telefoonNummer: FormControl;
   public email: FormControl;
   public gewicht: FormControl;
   public lengte: FormControl;
@@ -44,6 +45,9 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.minLength(2)
     ]);
+    this.telefoonNummer = new FormControl('', [
+      Validators.required,
+    ]);
     this.email = new FormControl('', [
       Validators.required,
       Validators.email
@@ -64,6 +68,7 @@ export class RegisterComponent implements OnInit {
       naam: this.naam,
       voornaam: this.voornaam,
       email: this.email,
+      telefoonNummer: this.telefoonNummer,
       geboorteDatum: this.geboorteDatum,
       gewicht: this.gewicht,
       lengte: this.lengte
@@ -80,6 +85,7 @@ export class RegisterComponent implements OnInit {
         'birthDay': this.geboorteDatum.value,
         'email': this.email.value,
         'gender': this.geslacht,
+        'phoneNumber': this.telefoonNummer.value,
         'weight': this.gewicht.value,
         'length': this.lengte.value
       };
